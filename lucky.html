@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>I'm Feeling Lucky</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden
+        }
+
+        body {
+            font-family: Segoe UI, Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e1e1e1;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding: 12px 16px;
+            backdrop-filter: blur(8px);
+            background: linear-gradient(180deg, rgba(20, 20, 20, .7), rgba(20, 20, 20, .35));
+            border-bottom: 1px solid rgba(255, 255, 255, .08)
+        }
+
+        .nav {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-inline: auto
+        }
+
+        .btn {
+            appearance: none;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: transparent;
+            color: #e8e8e8;
+            padding: .55rem .9rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, .06)
+        }
+
+        h1 {
+            margin: 0 auto;
+            padding: 1.5rem 1rem 0;
+            font-size: clamp(1.25rem, 1rem+2vw, 2rem);
+            width: 100%;
+            max-width: 1200px
+        }
+
+        #subtitle {
+            margin: 0 auto;
+            padding: .25rem 1rem 1rem;
+            color: #bbb;
+            width: 100%;
+            max-width: 1200px
+        }
+
+        .section {
+            width: 100%;
+            max-width: 1200px;
+            margin-inline: auto;
+            padding: 8px 16px;
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            margin: .5rem 0 8px;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%
+        }
+
+        @media (min-width:480px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 14px
+            }
+        }
+
+        @media (min-width:640px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 16px
+            }
+        }
+
+        @media (min-width:768px) {
+            .grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+            }
+        }
+
+        .card {
+            background: #1b1b1b;
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 12px;
+            padding: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .3);
+            transition: transform .15s ease
+        }
+
+        .card:hover {
+            transform: translateY(-3px)
+        }
+
+        .thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            background: #111
+        }
+
+        .title {
+            margin: .6rem 0 .3rem;
+            font-size: 1.05rem;
+            font-weight: 700
+        }
+
+        .desc {
+            color: #aaa;
+            font-size: .9rem
+        }
+
+        .empty {
+            opacity: .85;
+            text-align: center;
+            margin: 2rem 0
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <a class="btn" href="index.html">🏠 Home</a>
+            <button id="reshuffle-btn" class="btn primary">🔄 Reshuffle</button>
+            <a class="btn" href="favorites.html">⭐ Favorites</a>
+            <button class="btn primary" onclick="history.back()">⟵ Tilbage</button>
+        </div>
+    </header>
+
+    <h1>Din Træning</h1>
+    <div id="subtitle"></div>
+
+    <!-- Sektion til Lege (kun i “home mode”) -->
+    <section id="sec-lege" class="section" style="display:none">
+        <h2>Lege</h2>
+        <div id="grid-lege" class="grid"></div>
+    </section>
+
+    <!-- Sektion til Springopstillinger -->
+    <section id="sec-spring" class="section" style="display:none">
+        <h2>Springopstillinger</h2>
+        <div id="grid-spring" class="grid"></div>
+    </section>
+
+    <!-- Kategori-specifik (når der er ?category=...) -->
+    <section id="sec-category" class="section" style="display:none">
+        <h2 id="cat-title"></h2>
+        <div id="grid-category" class="grid"></div>
+    </section>
+
+    <div id="empty" class="empty" style="display:none">Ingen resultater.</div>
+
+    <script src="lucky.js"></script>
+</body>
+
+</html>
