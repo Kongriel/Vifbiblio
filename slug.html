@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detaljer</title>
+    <style>
+        /* ===== Base & tokens ===== */
+        :root {
+            --bg: #0a0a0a;
+            --panel: #151515;
+            --card: #1b1b1b;
+            --muted: #a9a9a9;
+            --accent1: #2a9a9f;
+            --accent2: #186cb8;
+            --ring: rgba(255, 255, 255, .08);
+            --shadow: 0 10px 30px rgba(0, 0, 0, .45);
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        .player-img {
+            width: 100%;
+            max-width: 600px;
+            /* begræns maks bredde */
+            height: auto;
+            border-radius: 12px;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #e8e8e8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ===== Header ===== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding: 12px 16px;
+            backdrop-filter: blur(8px);
+            background: linear-gradient(180deg, rgba(20, 20, 20, .7), rgba(20, 20, 20, .35));
+            border-bottom: 1px solid var(--ring);
+        }
+
+        .nav {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: .75rem
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: .3px;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: .5rem
+        }
+
+        .btn {
+            appearance: none;
+            border: 1px solid var(--ring);
+            background: transparent;
+            color: #e8e8e8;
+            padding: .55rem .9rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform .15s ease, background .15s ease, border-color .15s ease;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, .06);
+            transform: translateY(-1px);
+        }
+
+        .btn.primary {
+            border: none;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+        }
+
+        .btn.primary:hover {
+            filter: brightness(1.08);
+        }
+
+        .longdesc {
+            margin-top: 10px;
+            color: #cfcfcf;
+            line-height: 1.6;
+            white-space: pre-line;
+            /* bevar \n som linjeskift */
+            border-top: 1px solid rgba(255, 255, 255, .08);
+            padding-top: 10px;
+            padding-left: 12px;
+
+        }
+
+
+        /* ===== Page title ===== */
+        h1 {
+            width: 100%;
+            max-width: 1100px;
+            margin: 28px 16px 12px;
+            font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+            font-weight: 900;
+            letter-spacing: .2px;
+            line-height: 1.15;
+            background: linear-gradient(90deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            padding: 1.5rem 0;
+
+        }
+
+        /* ===== Cards ===== */
+        .card {
+            width: 90%;
+
+            max-width: 1100px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+            border: 1px solid var(--ring);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+
+            margin: 12px auto;
+            margin-bottom: 60px;
+
+        }
+
+        .favorite-button {
+
+            inset: auto 14px auto auto;
+            background: rgba(0, 0, 0, .45);
+            border: 1px solid var(--ring);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            cursor: pointer;
+            color: #f0c419;
+            transition: transform .15s ease, background .15s ease;
+
+
+        }
+
+        .favorite-button:hover {
+            transform: scale(1.08);
+            background: rgba(0, 0, 0, .65);
+        }
+
+        .card-header {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .player {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: 0;
+            border-radius: 12px;
+            background: #0f0f0f;
+            box-shadow: inset 0 0 0 1px var(--ring);
+        }
+
+        #item-description {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.55;
+            font-size: 1rem;
+        }
+
+        /* ===== Badge row (optional, uses category) ===== */
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+
+        }
+
+        .badge {
+            padding: .35rem .6rem;
+            border-radius: 999px;
+            font-size: .8rem;
+            font-weight: 600;
+            letter-spacing: .2px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid var(--ring);
+            color: #d8d8d8;
+        }
+
+        /* ===== Similar section ===== */
+        #similar-wrap {
+            padding: 18px
+        }
+
+        #similar-wrap h2 {
+            margin: 4px 0 14px;
+            font-size: clamp(1.1rem, 1rem + .6vw, 1.4rem);
+            font-weight: 800;
+            letter-spacing: .2px;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        #similar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+
+        .similar-card {
+            background: var(--card);
+
+            border-radius: 12px;
+            padding: 10px;
+            transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+
+        .similar-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+
+        }
+
+        .similar-thumb {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .similar-title {
+            margin: .55rem 0 .25rem;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .similar-desc {
+            color: var(--muted);
+            font-size: .9rem;
+            line-height: 1.45;
+        }
+
+        /* ===== Footer spacing ===== */
+        .spacer {
+            height: 32px
+        }
+
+        .badges-row {
+            display: flex;
+            gap: .4rem;
+            flex-wrap: wrap;
+            margin: .5rem 0 0;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 0, 0, .55);
+            border: 1px solid rgba(255, 255, 255, .15);
+            padding: .52rem .85rem;
+            border-radius: 999px;
+            font-size: .75rem;
+            color: #eaeaea;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 12px;
+        }
+
+        #item-description {
+            padding-left: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="nav">
+            <div class="nav-left">
+                <a class="btn" href="index.html">Home</a>
+            </div>
+            <div class="nav-links">
+                <a class="btn" href="favorites.html">Favorites</a>
+
+                <button class="btn primary" onclick="history.back()">⟵ Tilbage</button>
+            </div>
+        </div>
+    </header>
+
+    <h1 id="item-title">Loading…</h1>
+
+    <div id="item-container" class="card">
+        <div class="card-header">
+            <div id="video-wrap"></div>
+            <div class="flex">
+                <div id="meta-badges" class="badges-row"></div>
+
+                <button id="favorite-btn" class="favorite-button" title="Favorit">☆</button>
+            </div>
+            <!-- Valgfrit: JS kan sætte kategori her, fx <span class="badge" id="badge-category"></span> -->
+            <span class="badge" id="badge-category" style="display:none"></span>
+        </div>
+
+        <p id="item-description"></p>
+
+
+        <div id="long-description" class="longdesc" style="display:none"></div>
+
+    </div>
+    </div>
+
+    <div id="similar-wrap" class="card" style="display:none;">
+        <h2>Andre lignende videoer</h2>
+        <div id="similar-grid"></div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <script src="slug.js"></script>
+    <script>
+        // Lille UI-hook: vis kategori-badge når JS har hentet den
+        // (Hvis du allerede sætter category i slug.js, så tilføj blot:
+        //   document.getElementById('badge-category').textContent = item.category;
+        //   document.getElementById('badge-category').style.display = 'inline-block';
+        // i din renderItem-funktion.)
+    </script>
+</body>
+
+</html>
